@@ -12,10 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('sessions', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps(); // campos de fecha de inicio (created_at) y alta (updated_at)
+            $table->string('id')->primary();               
+            $table->foreignId('user_id')->nullable()->index();
+            $table->string('ip_address', 45)->nullable();
+            $table->text('user_agent')->nullable();
+            $table->text('payload');
+            $table->integer('last_activity')->index();
         });
     }
+    
 
     /**
      * Reverse the migrations.
